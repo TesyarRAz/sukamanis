@@ -29,6 +29,11 @@ class PengajuanSurat extends Model implements HasMedia
         return $this->belongsTo(User::class);
     }
 
+    public function signSurats()
+    {
+        return $this->hasMany(SignSurat::class);
+    }
+
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('cached_berkas')->useDisk('public')->singleFile();

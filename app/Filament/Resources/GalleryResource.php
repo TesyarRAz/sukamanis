@@ -19,10 +19,10 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GalleryResource extends Resource
 {
-    protected static ?string $navigationLabel = 'Kelola Gallery';
-    protected static ?string $label = 'Gallery';
+    protected static ?string $navigationLabel = 'Kelola Agenda';
+    protected static ?string $label = 'Agenda';
     protected static ?string $model = Gallery::class;
-    protected static ?string $modelLabel = 'Gallery';
+    protected static ?string $modelLabel = 'Agenda';
     protected static ?string $navigationGroup = 'Pengelolaan';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';

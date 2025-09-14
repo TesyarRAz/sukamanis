@@ -48,7 +48,12 @@ class ViewPengajuanSurat extends ViewRecord
                             ->requiresConfirmation()
                             ->action(function (PengajuanSurat $record) {
                                 GeneratePengajuanSurat::dispatchSync($record->id);
-                            })
+                            }),
+                        Action::make('signDocument')
+                            ->icon('heroicon-o-pencil-square')
+                            ->visible(fn(PengajuanSurat $record) => $record->getFirstMedia('cached_berkas'))
+                            ->url(fn(PengajuanSurat $record) => route('sign.document', ['pengajuan_surat_id' => $record->id]))
+                            ->openUrlInNewTab(),
                     ]),
                 TextEntry::make('verified_at')
                     ->dateTime(),

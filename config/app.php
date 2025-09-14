@@ -127,10 +127,13 @@ return [
     | to add your own service providers to this array.
     |
     */
-'aliases' => [
-    // alias lainnya
-    'Session' => Illuminate\Support\Facades\Session::class,
+        'aliases' => [
+    'App'   => Illuminate\Support\Facades\App::class,
+    'Blade' => Illuminate\Support\Facades\Blade::class,
+    'PDF'   => Barryvdh\DomPDF\Facade\Pdf::class,
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 ],
+
 
 
 
@@ -148,8 +151,5 @@ return [
     |
     */
 
-    'aliases' => [
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class, // Alias for Excel
-    ],
 
 ];

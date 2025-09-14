@@ -22,6 +22,9 @@ return new class extends Migration {
         $table->string('rt', 3);
         $table->string('rw', 3);
         $table->string('pekerjaan')->nullable();
+         $table->string('kk')->nullable();
+        $table->string('ktp')->nullable();
+
         $table->timestamps();
     });
     

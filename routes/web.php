@@ -13,8 +13,14 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PendudukController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\SignDocumentController;
+use App\Http\Controllers\WordToPdfController;
 
 
+Route::get('/convert-word-pdf', [WordToPdfController::class, 'convert']);
+
+Route::get('/penduduk/upload', [PendudukController::class, 'formUpload'])->name('penduduk.formUpload');
+Route::post('/penduduk/upload', [PendudukController::class, 'uploadCsv'])->name('penduduk.uploadCsv');
 
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -42,13 +48,13 @@ Route::get('/login/user', [AuthController::class, 'login'])->middleware('guest')
 Route::get('/registrasi', [AuthController::class, 'registrasi'])->name('registrasi');
 Route::post('/registrasi', [AuthController::class, 'postRegistrasi'])->name('postRegistrasi');
 Route::middleware('auth')->group(function () {
-Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/sign/document', [SignDocumentController::class, 'index'])->name('sign.document');
+    Route::post('/sign/document', [SignDocumentController::class, 'store'])->name('sign.document.store');
 
 
-
-
-    
     Route::get('/surat', [LayananController::class, 'surat'])->name('surat');
     Route::get('/surat1', [LayananController::class, 'surat1'])->name('surat1');
     Route::get('/surat2', [LayananController::class, 'surat2'])->name('surat2');

@@ -19,7 +19,7 @@ class ItemController extends Controller
         ]));
 
         // Proses penghapusan item
-        $item = Item::findOrFail($id);
+        // $item = Item::findOrFail($id);
         $item->delete();
 
         return redirect()->route('items.index');

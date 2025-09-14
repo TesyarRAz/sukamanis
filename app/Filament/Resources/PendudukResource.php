@@ -14,6 +14,9 @@ use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Forms\Components\FileUpload;
+use Filament\Tables\Columns\ImageColumn;
+use Illuminate\Support\Facades\DB;
 
 class PendudukResource extends Resource
 {
@@ -42,6 +45,20 @@ class PendudukResource extends Resource
                 TextInput::make('rt')->required()->label('RT'),
                 TextInput::make('rw')->required()->label('RW'),
                 TextInput::make('pekerjaan')->nullable()->label('Pekerjaan'),
+                FileUpload::make('kk')
+                    ->label('Foto KK')
+                    ->image()
+                    ->directory('uploads/kk')
+                    ->preserveFilenames()
+                    ->maxSize(2048)
+                    ->required(),
+                FileUpload::make('ktp')
+                    ->label('Foto KTP')
+                    ->image()
+                    ->directory('uploads/ktp')
+                    ->preserveFilenames()
+                    ->maxSize(2048)
+                    ->required(),
             ]);
     }
 
@@ -59,34 +76,61 @@ class PendudukResource extends Resource
                 TextColumn::make('rt')->sortable()->label('RT'),
                 TextColumn::make('rw')->sortable()->label('RW'),
                 TextColumn::make('pekerjaan')->label('Pekerjaan'),
+                ImageColumn::make('kk')->label('Foto KK')->square(),
+                ImageColumn::make('ktp')->label('Foto KTP')->square(),
             ])
             ->headerActions([
-                DeleteBulkAction::make()
-                    ->label('Hapus Terpilih')
-                    ->icon('heroicon-o-trash')
-                    ->deselectRecordsAfterCompletion()
-                    ->requiresConfirmation()
-                    ->successNotificationTitle('Data penduduk berhasil dihapus'),
-            ])
-            ->actions([
-                DeleteAction::make(),
+                Tables\Actions\CreateAction::make(),
+                
+                // ✅ Tambahkan tombol upload CSV
+                Action::make('importCsv')
+                    ->label('Upload CSV')
+                    ->icon('heroicon-o-arrow-up-tray')
+                    ->form([
+                        FileUpload::make('file')
+                            ->label('Pilih File CSV')
+                            ->required()
+                            ->acceptedFileTypes(['text/csv', 'text/plain']),
+                    ])
+                    ->action(function (array $data) {
+                        $path = storage_path('app/' . $data['file']);
+                        if (($handle = fopen($path, 'r')) !== false) {
+                            $isHeader = true;
+                            while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                                if ($isHeader) {
+                                    $isHeader = false;
+                                    continue;
+                                }
+                                // sesuaikan dengan kolom tabel
+                                Penduduk::create([
+                                    'nkk' => $row[0] ?? null,
+                                    'nik' => $row[1] ?? null,
+                                    'nama' => $row[2] ?? null,
+                                    'tempat_lahir' => $row[3] ?? null,
+                                    'tanggal_lahir' => $row[4] ?? null,
+                                    'alamat' => $row[5] ?? null,
+                                    'jenis_kelamin' => $row[6] ?? null,
+                                    'rt' => $row[7] ?? null,
+                                    'rw' => $row[8] ?? null,
+                                    'pekerjaan' => $row[9] ?? null,
+                                ]);
+                            }
+                            fclose($handle);
+                        }
+                    })
+                    ->color('success')
+                    ->modalHeading('Import Data Penduduk dari CSV')
+                    ->modalButton('Upload'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ])
-            ])
-            ->headerActions([
-                Tables\Actions\CreateAction::make(),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
+                ]),
             ]);
-
-
     }
 
     public static function getRelations(): array

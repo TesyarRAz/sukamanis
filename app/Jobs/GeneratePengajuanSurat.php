@@ -97,23 +97,8 @@ class GeneratePengajuanSurat implements ShouldQueue
             $template = new TemplateProcessor($templatePath);
             $template->setValues($forms->toArray());
 
-            // ==== Tambah BARCODE / QR ====
             $dir = "surat/pengajuan/{$surat->id}";
             Storage::disk('public')->makeDirectory($dir);
-
-            $qrText = url('/verifikasi-surat/' . $pengajuanSurat->id);
-            $qr = QrCode::create($qrText);
-            $writer = new PngWriter();
-            $qrResult = $writer->write($qr);
-            $qrPath = storage_path("app/public/{$dir}/barcode.png");
-            $qrResult->saveToFile($qrPath);
-
-            $template->setImageValue('barcode', [
-                'path' => $qrPath,
-                'width' => 120,
-                'height' => 120,
-                'ratio' => false,
-            ]);
 
             // ==== Simpan Word ====
             $baseFilename = str()->random(10);

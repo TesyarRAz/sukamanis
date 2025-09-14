@@ -16,6 +16,7 @@ use PhpOffice\PhpWord\IOFactory;
 use PhpOffice\PhpWord\Settings;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Writer\PngWriter;
+use NcJoes\OfficeConverter\OfficeConverter;
 
 class GeneratePengajuanSurat implements ShouldQueue
 {
@@ -118,12 +119,21 @@ class GeneratePengajuanSurat implements ShouldQueue
                 Settings::setPdfRendererName(Settings::PDF_RENDERER_TCPDF);
                 Settings::setPdfRendererPath(base_path('vendor/tecnickcom/tcpdf'));
 
-                $phpWord = IOFactory::load($docxFilepath);
+                // $phpWord = IOFactory::load($docxFilepath);
                 $pdfFilename = $baseFilename . '.pdf';
+                $pdfDir = storage_path("app/public/{$dir}");
                 $pdfFilepath = storage_path("app/public/{$dir}/{$pdfFilename}");
 
-                $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
-                $pdfWriter->save($pdfFilepath);
+                // pastikan folder ada
+                if (!file_exists($pdfDir)) {
+                    mkdir($pdfDir, 0777, true);
+                }
+
+                $converter = new OfficeConverter($docxFilepath, $pdfDir);
+                $converter->convertTo($pdfFilename);
+
+                // $pdfWriter = IOFactory::createWriter($phpWord, 'PDF');
+                // $pdfWriter->save($pdfFilepath);
 
                 if (file_exists($pdfFilepath)) {
                     Log::info("Surat berhasil dikonversi ke PDF: {$pdfFilepath}");

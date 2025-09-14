@@ -53,7 +53,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/sign/document', [SignDocumentController::class, 'index'])->name('sign.document');
     Route::post('/sign/document', [SignDocumentController::class, 'store'])->name('sign.document.store');
-
+    Route::get('/document/signed/{code}', [SignDocumentController::class, 'showSignedDocument'])->name('document.signed');
 
     Route::get('/surat', [LayananController::class, 'surat'])->name('surat');
     Route::get('/surat1', [LayananController::class, 'surat1'])->name('surat1');

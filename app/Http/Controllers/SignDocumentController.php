@@ -42,4 +42,12 @@ class SignDocumentController extends Controller
             'redirect_url' => route('filament.admin.resources.pengajuan-surats.view', ['record' => $request->pengajuan_surat_id]),
         ]);
     }
+
+    public function showSignedDocument($code)
+    {
+        $signedDocument = \App\Models\SignSurat::where('signature_code', $code)->firstOrFail();
+        $fileUrl = asset('storage/' . $signedDocument->original_filepath);
+
+        return response()->file(storage_path('app/public/' . $signedDocument->original_filepath));
+    }
 }

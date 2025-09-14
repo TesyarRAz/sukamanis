@@ -106,45 +106,50 @@
                 <p class="text-gray-600 text-lg">Upload PDF, generate/upload QR codes, and drag them wherever you want!
                 </p>
             </div>
+            <div class="flex gap-6">
+                <!-- QR Code Bank -->
+                <div id="qrBank"
+                    class="sticky top-4 h-fit mb-8 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 min-h-24">
+                    <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
+                        </svg>
+                        QR Code Collection - Drag onto PDF pages
+                    </h3>
+                    <div id="qrList" class="flex flex-wrap gap-4">
+                        <div class="text-gray-500 italic text-center w-full py-8">
+                            Generate or upload QR codes to get started
+                        </div>
+                    </div>
+                </div>
 
-            <!-- QR Code Bank -->
-            <div id="qrBank"
-                class="mb-8 p-6 bg-gradient-to-r from-gray-50 to-gray-100 rounded-2xl border border-gray-200 min-h-24">
-                <h3 class="font-semibold text-gray-800 mb-4 flex items-center">
-                    <svg class="w-5 h-5 mr-2 text-gray-600" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z" />
-                    </svg>
-                    QR Code Collection - Drag onto PDF pages
-                </h3>
-                <div id="qrList" class="flex flex-wrap gap-4">
-                    <div class="text-gray-500 italic text-center w-full py-8">
-                        Generate or upload QR codes to get started
+                <!-- PDF Viewer -->
+                <div id="pdfViewer" class="flex-1 bg-gray-50 rounded-2xl p-6 min-h-96">
+                    <div class="text-center text-gray-500 py-20">
+                        <svg class="w-20 h-20 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                            <path
+                                d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
+                        </svg>
+                        <p class="text-xl font-medium">Upload a PDF file to start editing</p>
+                        <p class="text-sm text-gray-400 mt-2">Supported formats: PDF</p>
                     </div>
                 </div>
             </div>
 
-            <!-- PDF Viewer -->
-            <div id="pdfViewer" class="bg-gray-50 rounded-2xl p-6 min-h-96">
-                <div class="text-center text-gray-500 py-20">
-                    <svg class="w-20 h-20 mx-auto mb-4 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
-                        <path
-                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" />
-                    </svg>
-                    <p class="text-xl font-medium">Upload a PDF file to start editing</p>
-                    <p class="text-sm text-gray-400 mt-2">Supported formats: PDF</p>
-                </div>
-            </div>
 
             <!-- Status -->
             <div id="status" class="mt-6 text-center text-gray-600"></div>
-            <button id="submitPdf" class="mt-4 bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 transition-colors">Submit PDF</button>
+            <button id="submitPdf"
+                class="mt-4 bg-blue-500 text-white rounded-md px-4 py-2 hover:bg-blue-600 transition-colors">Submit
+                PDF</button>
         </div>
 
     </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
         class QRPDFEditor {
@@ -273,7 +278,7 @@
             }
 
             generateQRCode() {
-                const text = "TEST QR CODE";
+                const text = "{{ route('document.signed', $signature_code) }}";
 
                 const canvas = document.createElement('canvas');
                 QRCode.toCanvas(canvas, text, {
@@ -326,7 +331,7 @@
                 qrElement.draggable = true;
                 qrElement.innerHTML = `
                     <img src="${imageSrc}" class="w-20 h-20 mx-auto rounded-lg" alt="QR Code">
-                    <p class="text-xs text-center mt-2 text-gray-600 truncate">${label}</p>
+                    <p class="text-xs text-center mt-2 text-gray-600 truncate">QRCode</p>
                 `;
 
                 qrElement.addEventListener('dragstart', (e) => {
@@ -536,18 +541,20 @@
                     const blob = new Blob([pdfBytes], {
                         type: 'application/pdf'
                     });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.target = '_blank';
-                    // a.download = 'pdf-with-qr-codes.pdf';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
 
-                    this.updateStatus('PDF downloaded successfully!');
+                    // Create FormData
+                    const formData = new FormData();
+                    formData.append("pdfFile", blob, "with-qr.pdf");
+                    formData.append("signature_code", '{{ $signature_code }}');
 
+                    const res = await axios.post(
+                        '{{ route('sign.document.store', ['pengajuan_surat_id' => $pengajuan_surat_id]) }}',
+                        formData,
+                        { headers: { "Content-Type": "multipart/form-data" } }
+                    );
+                    window.location.href = res.data.redirect_url;
+                    
+                    this.updateStatus('PDF generated and submitted successfully!');
                 } catch (error) {
                     console.error('Error generating PDF:', error);
                     this.updateStatus('Error generating PDF');

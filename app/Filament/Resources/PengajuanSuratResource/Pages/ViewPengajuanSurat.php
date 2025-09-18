@@ -21,10 +21,8 @@ class ViewPengajuanSurat extends ViewRecord
         return $infolist
             ->schema([
                 TextEntry::make('nomor'),
-                TextEntry::make('tanggal.pengajuan'),
                 TextEntry::make('surat.name'),
                 TextEntry::make('user.name'),
-                TextEntry::make('tanggal.pengajuan'),
                 TextEntry::make('status')
                     ->badge()
                     ->color(fn ($state): string => match ($state) {
@@ -57,6 +55,9 @@ class ViewPengajuanSurat extends ViewRecord
                     ]),
                 TextEntry::make('verified_at')
                     ->dateTime(),
+                TextEntry::make('tanggal_pengajuan')
+                    ->date(),
+                
             ]);
     }
 }

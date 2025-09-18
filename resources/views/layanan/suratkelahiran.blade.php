@@ -133,10 +133,9 @@
             @enderror
         </div>
         
-        <div class="row mb-3 text-center">
-            <div class="col-sm-12">
-                <button class="btn btn-success" type="submit">Submit Form</button>
-            </div>
+        
+        <div class="col-12 text-center">
+            <button class="btn btn-success" type="submit">Submit Form</button>
         </div>
     </form>
 </div>

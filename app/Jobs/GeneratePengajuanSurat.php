@@ -52,7 +52,8 @@ class GeneratePengajuanSurat implements ShouldQueue
 
         $forms = collect($pengajuanSurat->data + [
             'nomor' => $pengajuanSurat->nomor,
-            'verified_at' => ($pengajuanSurat->verified_at ?? now())->format('d-m-Y'),
+            'verified_at' => $pengajuanSurat->verified_at ?? "-",
+            'tanggal_pengajuan' => $pengajuanSurat->tanggal_pengajuan ?? "-",
         ]);
 
         $value_format = collect($surat->value_format);
@@ -86,7 +87,7 @@ class GeneratePengajuanSurat implements ShouldQueue
                             break;
                     }
 
-                    $v = $valFn($v);
+                    $v = rescue(fn() => $valFn($v), $v);
                     return [$k => str($value_format[$k])->replace($dirt, $v)->toString()];
                 }
             }

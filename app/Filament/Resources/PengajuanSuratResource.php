@@ -71,6 +71,9 @@ class PengajuanSuratResource extends Resource
                     ->addable(false)
                     ->deletable(false),
                 Forms\Components\DateTimePicker::make('verified_at'),
+                Forms\Components\DatePicker::make('tanggal_pengajuan')
+                    ->default(now())
+                    ->required(),
             ]);
     }
 

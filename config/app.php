@@ -127,19 +127,14 @@ return [
     | to add your own service providers to this array.
     |
     */
-        'aliases' => [
-    'App'   => Illuminate\Support\Facades\App::class,
-    'Blade' => Illuminate\Support\Facades\Blade::class,
-    'PDF'   => Barryvdh\DomPDF\Facade\Pdf::class,
-    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-],
-
-
-
-
-
+    'aliases' => [
+        'App'   => Illuminate\Support\Facades\App::class,
+        'Blade' => Illuminate\Support\Facades\Blade::class,
+        'PDF'   => Barryvdh\DomPDF\Facade\Pdf::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Session' => Illuminate\Support\Facades\Session::class,
+    ],
     
-
     /*
     |--------------------------------------------------------------------------
     | Class Aliases

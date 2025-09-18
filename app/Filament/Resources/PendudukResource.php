@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Imports\PendudukImporter;
 use App\Filament\Resources\PendudukResource\Pages;
 use App\Models\Penduduk;
 use Filament\Forms;
@@ -76,51 +77,51 @@ class PendudukResource extends Resource
                 TextColumn::make('rt')->sortable()->label('RT'),
                 TextColumn::make('rw')->sortable()->label('RW'),
                 TextColumn::make('pekerjaan')->label('Pekerjaan'),
-                ImageColumn::make('kk')->label('Foto KK')->square(),
-                ImageColumn::make('ktp')->label('Foto KTP')->square(),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
+                Tables\Actions\ImportAction::make()
+                    ->importer(PendudukImporter::class),
                 
                 // ✅ Tambahkan tombol upload CSV
-                Action::make('importCsv')
-                    ->label('Upload CSV')
-                    ->icon('heroicon-o-arrow-up-tray')
-                    ->form([
-                        FileUpload::make('file')
-                            ->label('Pilih File CSV')
-                            ->required()
-                            ->acceptedFileTypes(['text/csv', 'text/plain']),
-                    ])
-                    ->action(function (array $data) {
-                        $path = storage_path('app/' . $data['file']);
-                        if (($handle = fopen($path, 'r')) !== false) {
-                            $isHeader = true;
-                            while (($row = fgetcsv($handle, 1000, ',')) !== false) {
-                                if ($isHeader) {
-                                    $isHeader = false;
-                                    continue;
-                                }
-                                // sesuaikan dengan kolom tabel
-                                Penduduk::create([
-                                    'nkk' => $row[0] ?? null,
-                                    'nik' => $row[1] ?? null,
-                                    'nama' => $row[2] ?? null,
-                                    'tempat_lahir' => $row[3] ?? null,
-                                    'tanggal_lahir' => $row[4] ?? null,
-                                    'alamat' => $row[5] ?? null,
-                                    'jenis_kelamin' => $row[6] ?? null,
-                                    'rt' => $row[7] ?? null,
-                                    'rw' => $row[8] ?? null,
-                                    'pekerjaan' => $row[9] ?? null,
-                                ]);
-                            }
-                            fclose($handle);
-                        }
-                    })
-                    ->color('success')
-                    ->modalHeading('Import Data Penduduk dari CSV')
-                    ->modalButton('Upload'),
+                // Action::make('importCsv')
+                //     ->label('Upload CSV')
+                //     ->icon('heroicon-o-arrow-up-tray')
+                //     ->form([
+                //         FileUpload::make('file')
+                //             ->label('Pilih File CSV')
+                //             ->required()
+                //             ->acceptedFileTypes(['text/csv', 'text/plain']),
+                //     ])
+                //     ->action(function (array $data) {
+                //         $path = storage_path('app/' . $data['file']);
+                //         if (($handle = fopen($path, 'r')) !== false) {
+                //             $isHeader = true;
+                //             while (($row = fgetcsv($handle, 1000, ',')) !== false) {
+                //                 if ($isHeader) {
+                //                     $isHeader = false;
+                //                     continue;
+                //                 }
+                //                 // sesuaikan dengan kolom tabel
+                //                 Penduduk::create([
+                //                     'nkk' => $row[0] ?? null,
+                //                     'nik' => $row[1] ?? null,
+                //                     'nama' => $row[2] ?? null,
+                //                     'tempat_lahir' => $row[3] ?? null,
+                //                     'tanggal_lahir' => $row[4] ?? null,
+                //                     'alamat' => $row[5] ?? null,
+                //                     'jenis_kelamin' => $row[6] ?? null,
+                //                     'rt' => $row[7] ?? null,
+                //                     'rw' => $row[8] ?? null,
+                //                     'pekerjaan' => $row[9] ?? null,
+                //                 ]);
+                //             }
+                //             fclose($handle);
+                //         }
+                //     })
+                //     ->color('success')
+                //     ->modalHeading('Import Data Penduduk dari CSV')
+                //     ->modalButton('Upload'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

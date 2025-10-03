@@ -27,7 +27,7 @@ WORKDIR /var/www
 
 RUN npm install && npm run build
 
-FROM php:8.3.4-fpm-alpine
+FROM php:8.1-fpm-alpine
 
 USER root
 
@@ -38,8 +38,7 @@ RUN apk add --no-cache --virtual build-essentials \
     libpng-dev libwebp-dev libjpeg-turbo-dev freetype-dev && \
     docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg --with-webp && \
     docker-php-ext-install gd && \
-    docker-php-ext-install pgsql && \
-    docker-php-ext-install pgsql pdo pdo_pgsql mysqli pdo_mysql && \
+    docker-php-ext-install mysqli pdo_mysql && \
     docker-php-ext-install intl && \
     docker-php-ext-install bcmath && \
     docker-php-ext-install opcache && \

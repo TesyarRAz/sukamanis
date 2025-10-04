@@ -10,7 +10,9 @@ class LayananController extends Controller
 {
     function surat(Request $request)
     {
-        $data = $request->user()->pengajuans()->latest()->cursorPaginate(10);
+        $data = $request->user()->pengajuans()->with([
+            'signSurats' => fn($query) => $query->latest()->take(1),
+        ])->latest()->cursorPaginate(10);
 
         return view('layanan.surat', compact('data'));
     }

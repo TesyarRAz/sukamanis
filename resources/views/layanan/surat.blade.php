@@ -42,8 +42,17 @@
                 </td>
                 <td>{{ $item->verified_at?->format('d-m-Y H:i:s') }}</td>
                 <td>
-                    @if ($item->hasMedia('cached_berkas'))
+                    {{-- @if ($item->hasMedia('cached_berkas'))
                     <a href="{{ $item->getFirstMediaUrl('cached_berkas') }}" class="btn btn-sm btn-outline-primary">Download</a>
+                    @endif --}}
+
+                    @if ($item->signSurats->isNotEmpty())
+                    @php
+                    $latestSignSurat = $item->signSurats->first();
+                    @endphp
+                    <a href="{{ route('document.signed', $latestSignSurat->signature_code) }}" class="btn btn-sm btn-outline-primary" target="_blank">Lihat Surat</a>
+                    @else
+                    <span class="text-muted">Belum ada surat</span>
                     @endif
                 </td>
             </tr>

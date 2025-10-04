@@ -35,6 +35,7 @@ class SignDocumentController extends Controller
             'name' => str()->random(10),
             'original_filename' => $pdfFile->getClientOriginalName(),
             'original_filepath' => $filePath,
+            'signatured_filepath' => $filePath, // Sesuaikan jika ada file tanda tangan terpisah
             'signature_code' => $request->signature_code,
         ]);
 

@@ -14,7 +14,7 @@ WORKDIR /var/www
 
 RUN npm install && npm run build
 
-FROM php:8.1-fpm-alpine
+FROM php:8.3-fpm-alpine
 
 USER root
 

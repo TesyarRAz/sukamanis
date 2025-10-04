@@ -1,3 +1,3 @@
 #!/bin/sh
 
-php artisan horizon --silent &
+php /var/www/artisan horizon --silent &

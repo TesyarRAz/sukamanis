@@ -33,6 +33,15 @@ RUN apk add --no-cache --virtual build-essentials \
     docker-php-ext-enable ${PHP_ENABLE_EXTS} && \
     apk del build-essentials && rm -rf /usr/src/php*
 
+RUN apk add --no-cache \
+    libreoffice \
+    ttf-dejavu \
+    font-noto \
+    font-noto-cjk \
+    font-noto-emoji \
+    font-liberation \
+    && fc-cache -f -v
+
 RUN apk add --no-cache nginx wget libreoffice
 
 RUN mkdir -p /run/nginx

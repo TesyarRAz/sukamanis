@@ -51,15 +51,13 @@ class PendudukResource extends Resource
                     ->image()
                     ->directory('uploads/kk')
                     ->preserveFilenames()
-                    ->maxSize(2048)
-                    ->required(),
+                    ->maxSize(2048),
                 FileUpload::make('ktp')
                     ->label('Foto KTP')
                     ->image()
                     ->directory('uploads/ktp')
                     ->preserveFilenames()
-                    ->maxSize(2048)
-                    ->required(),
+                    ->maxSize(2048),
             ]);
     }
 

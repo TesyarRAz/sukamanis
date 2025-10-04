@@ -43,10 +43,6 @@ class PendudukImporter extends Importer
                 ->rules(['required', 'max:3']),
             ImportColumn::make('pekerjaan')
                 ->rules(['max:255']),
-            ImportColumn::make('kk')
-                ->rules(['max:255']),
-            ImportColumn::make('ktp')
-                ->rules(['max:255']),
         ];
     }
 

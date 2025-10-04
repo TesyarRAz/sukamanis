@@ -48,11 +48,6 @@ class PendudukImporter extends Importer
 
     public function resolveRecord(): ?Penduduk
     {
-        return Penduduk::firstOrNew([
-            // Update existing records, matching them by `$this->data['column_name']`
-            'nik' => $this->data['nik'],
-        ]);
-
         return new Penduduk();
     }
 

@@ -16,14 +16,7 @@
             rel="stylesheet">
     </head>
 
-    <div class="biru">
-        <div class="nav container py-2">
-            <div class="nav-item ms-auto">
-            </div>
-        </div>
-    </div>
-
-    <nav class="navbar sticky-top navbar-expand-lg shadow-sm p-3 navbar-dark navbar-custom">
+    <nav class="navbar sticky-top navbar-expand-lg shadow-sm navbar-dark navbar-custom">
         <div class="container-sm"> <!-- lebih kecil dari container-md -->
             <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/">
                 <img src="{{ asset('assets/gambar/logo.png') }}" alt="Logo Desa" width="100" height="75"

@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             @foreach ($carousels as $key => $carousel)
                 <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                    <img src="{{ asset('storage/' . $carousel->image) }}" class="d-block w-100 carousel-img"
+                    <img src="{{ asset('storage/' . $carousel->image) }}" class="d-block w-100 carousel-img" style="height: 600px"
                         alt="Carousel Image">
                 </div>
             @endforeach
@@ -148,7 +148,7 @@
     .carousel-img {
         max-height: 1000px;
         /* atur sesuai keinginan */
-        object-fit: contain;
+        object-fit: cover;
         /* gambar utuh, tidak dipotong */
         background-color: #ffffff;
         /* kasih background biar rapi */

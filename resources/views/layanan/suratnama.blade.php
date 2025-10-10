@@ -151,7 +151,7 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8" style="display: none">
                 <label class="form-label">Tanggal Pengajuan</label>
                 <input name="tanggal_pengajuan" type="text"
                     class="form-control @error('tanggal_pengajuan') is-invalid @enderror">

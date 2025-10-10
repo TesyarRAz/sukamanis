@@ -87,7 +87,7 @@
                     @enderror
                 </div>
             </div>
-            <div class="row justify-content-md-center mb-3">
+            <div class="row justify-content-md-center mb-3" style="display: none">
                 <div class="col-md-8">
                     <label class="form-label">Tanggal Pengajuan</label>
                     <input name="tanggal_pengajuan" type="text"

@@ -12,6 +12,34 @@
             @csrf
 
             <div class="col-sm-8">
+                <label class="form-label">pada hari</label>
+                <input name="pada_hari" type="text" class="form-control @error('pada_hari') is-invalid @enderror" required>
+                @error('pada_hari')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+             <div class="col-sm-8">
+                <label class="form-label">tanggal</label>
+                <input name="tanggal" type="text" class="form-control @error('tanggal') is-invalid @enderror" required>
+                @error('tanggal')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+             <div class="col-sm-8">
+                <label class="form-label">bulan</label>
+                <input name="bulan" type="text" class="form-control @error('bulan') is-invalid @enderror" required>
+                @error('bulan')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+             <div class="col-sm-8">
+                <label class="form-label">tahun</label>
+                <input name="tahun" type="text" class="form-control @error('tahun') is-invalid @enderror" required>
+                @error('tahun')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-sm-8">
                 <label class="form-label">Nama</label>
                 <input name="nama" type="text" class="form-control @error('nama') is-invalid @enderror" required>
                 @error('nama')
@@ -54,7 +82,7 @@
                 @enderror
             </div>
 
-            <div class="col-sm-3">
+            <div class="col-sm-8">
                 <label class="form-label">Jenis Kelamin</label>
                 <select name="jenis_kelamin" class="form-select @error('jenis_kelamin') is-invalid @enderror" required>
                     <option value="l" selected>Laki-laki</option>
@@ -72,15 +100,28 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-md-8" style="display: none">
-                <label class="form-label">Tanggal Pengajuan</label>
-                <input name="tanggal_pengajuan" type="text"
-                    class="form-control @error('tanggal_pengajuan') is-invalid @enderror">
-                @error('tanggal_pengajuan')
+             <div class="col-sm-8">
+                <label class="form-label">kampung</label>
+                <textarea name="kampung" class="form-control @error('kampung') is-invalid @enderror" required></textarea>
+                @error('kampung')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            <div class="col-sm-8">
+             <div class="col-sm-8">
+                <label class="form-label">RT</label>
+                <textarea name="rt" class="form-control @error('rt') is-invalid @enderror" required></textarea>
+                @error('rt')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+             <div class="col-sm-8">
+                <label class="form-label">RW</label>
+                <textarea name="rw" class="form-control @error('rw') is-invalid @enderror" required></textarea>
+                @error('rw')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
+            </div>
+            <div class="col-12 text-center">
                 <button class="btn btn-success" type="submit">Submit Form</button>
             </div>
         </form>

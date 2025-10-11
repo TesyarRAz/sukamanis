@@ -75,7 +75,7 @@
                             <li><a class="dropdown-item" href="{{ route('surat') }}">PENGAJUAN SURAT</a></li>
                             <li><a class="dropdown-item" href="{{ route('surat1') }}">SURAT KETERANGAN TIDAK MAMPU</a>
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('surat2') }}">SURAT KEMATIAN</a></li>
+                            <li><a class="dropdown-item" href="{{ route('surat6') }}">SURAT KEMATIAN</a></li>
                             <li><a class="dropdown-item" href="{{ route('surat3') }}">SURAT BEDA NAMA</a></li>
                             <li><a class="dropdown-item" href="{{ route('surat4') }}">SURAT BERITA ACARA/SURVEI</a>
                             </li>

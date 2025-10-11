@@ -32,7 +32,6 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->label('Password')
                     ->password()
-                    ->dehydrated(false)
                     ->required(false),
                 Forms\Components\Select::make('roles')
                     ->label('Role')

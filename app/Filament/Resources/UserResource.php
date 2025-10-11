@@ -14,7 +14,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
- protected static ?string $navigationLabel = 'Data Pengguna';
+    protected static ?string $navigationLabel = 'Data Pengguna';
     protected static ?string $navigationIcon = 'heroicon-o-users';
     protected static ?string $navigationGroup = 'Administrasi Desa';
 
@@ -32,7 +32,8 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('password')
                     ->label('Password')
                     ->password()
-                    ->dehydrateStateUsing(fn ($state) => $state ? bcrypt($state) : null),
+                    ->dehydrated(false)
+                    ->required(false),
                 Forms\Components\Select::make('roles')
                     ->label('Role')
                     ->relationship('roles', 'name')

@@ -32,6 +32,7 @@ Route::get('/visimisi', [PemerintahanController::class, 'visimisi'])->name('visi
 Route::get('/struktur', [PemerintahanController::class, 'struktur'])->name('struktur');
 Route::get('/berita', [InformasiController::class, 'berita'])->name('berita');
 Route::get('/gambar', [InformasiController::class, 'gambar'])->name('gambar');
+Route::get('/gambar/{gambar}', [InformasiController::class, 'gambarshow'])->name('gambarshow');
 Route::get('/produk/gambar', [ProdukController::class, 'vgambar'])->name('produk.gambar');
 Route::get('/berita/{berita:slug}', [InformasiController::class, 'beritashow'])->name('beritashow');
 Route::get('/kontak', function () {
@@ -69,15 +70,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/surat8', [LayananController::class, 'surat8'])->name('surat8');
     Route::get('/surat9', [LayananController::class, 'surat9'])->name('surat9');
 
-
-
     Route::get('/penduduk', [PendudukController::class, 'index']);
     Route::post('/penduduk/upload', [PendudukController::class, 'upload'])->name('penduduk.upload');
     Route::get('/penduduk/search', [PendudukController::class, 'search']);
     Route::delete('/items/{id}', [ItemController::class, 'deleteItem'])->name('items.delete');
     Route::get('/penduduk/getByNik', [PendudukController::class, 'getByNik'])->name('penduduk.getByNik');
     Route::post('/import-penduduk', [PendudukController::class, 'import'])->name('import.penduduk');
-
 
     Route::post('/surat/{surat:slug}', [LayananController::class, 'postSurat'])->name('surat.store');
 });

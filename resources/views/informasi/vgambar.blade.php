@@ -22,6 +22,9 @@
                             <p class="text-center mt-5">
                                 {{ $gallery->description }}
                             </p>
+                            <a href="{{ route('gambarshow', $item->id) }}">
+                                Lihat Selengkapnya
+                            </a>
                         </div>
                     </div>
                 @endforeach

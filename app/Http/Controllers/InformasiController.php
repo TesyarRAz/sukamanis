@@ -26,4 +26,9 @@ class InformasiController extends Controller
 
         return view('informasi.vgambar', compact('data'));
     }
+
+    function gambarshow(Gallery $gambar)
+    {
+        return view('informasi.vgambarshow', compact('gambar'));
+    }
 }

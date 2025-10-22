@@ -62,6 +62,7 @@
                             style="height:250px; object-fit:cover;" alt="gambar">
                         <div class="card-body text-center">
                             <p class="fw-semibold m-0">{{ $item->name }}</p>
+                            <a href="{{ route('gambarshow', $item->id) }}" class="ms-1 stretched-link"></a>
                         </div>
                     </div>
                 </div>

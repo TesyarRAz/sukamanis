@@ -16,19 +16,20 @@
             rel="stylesheet">
     </head>
 
-    <nav class="navbar sticky-top navbar-expand-lg shadow-sm navbar-dark navbar-custom">
-        <div class="container-sm"> <!-- lebih kecil dari container-md -->
-            <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/">
-                <img src="{{ asset('assets/gambar/logo.png') }}" alt="Logo Desa" width="100" height="75"
-                    class="me-2">
-                <span style="color: #fefefe; font-weight: bold;">DESA SUKAMANIS</span>
-            </a>
+    <nav class="navbar sticky-top navbar-expand-lg shadow-sm p-1 navbar-dark navbar-custom">
+    <div class="container-fluid px-3">
+        <a class="navbar-brand d-flex align-items-center fw-bold text-white" href="/" style="margin-left: -10px;">
+            <img src="{{ asset('assets/gambar/logo.png') }}" alt="Logo Desa" width="100" height="75" class="me-2">
+            <span style="color: #fefefe; font-weight: bold;">DESA SUKAMANIS</span>
+        </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
                 aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav mx-auto" style="transform: translateX(-50px);">
+
+
                     <li class="nav-item me-4">
                         <a class="nav-link hover-active" href="/">BERANDA</a>
                     </li>
@@ -83,39 +84,40 @@
                             <li><a class="dropdown-item" href="{{ route('surat7') }}">SURAT PENGUBURAN</a></li>
                             <li><a class="dropdown-item" href="{{ route('surat8') }}">SURAT DOMISILI</a></li>
                             <li><a class="dropdown-item" href="{{ route('surat9') }}">SURAT KELAHIRAN</a></li>
-
+                                
 
                         </ul>
                     </li>
-                    <li class="nav-item dropdown me-4">
-                        <a class="nav-link dropdown-toggle hover-active" href="#" role="button"
-                            data-bs-toggle="dropdown" aria-expanded="false">
-                            LOGIN
-                        </a>
-                        <ul class="dropdown-menu">
-                            @auth
-                                @if (auth()->user()->hasRole('admin'))
-                                    <li><a class="dropdown-item"
-                                            href="{{ route('filament.admin.pages.dashboard') }}">DASHBOARD</a></li>
-                                @else
-                                    <li><a class="dropdown-item" onclick="document.querySelector('#btnLogout').click()"
-                                            href="javascript:void(0)">LOGOUT SEBAGAI USER</a></li>
-                                @endif
-
-                                <form class="d-none" action="{{ route('logout') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-
-                                    <button type="submit" id="btnLogout"></button>
-                                </form>
-                            @else
-                                <li><a class="dropdown-item" href="/admin">LOGIN SEBAGAI ADMIN</a></li>
-                                <li><a class="dropdown-item" href="{{ route('login') }}">LOGIN SEBAGAI USER</a></li>
-                            @endauth
-                        </ul>
-                    </li>
-                    <li class="nav-item me-4">
+                     <li class="nav-item me-4">
                         <a class="nav-link hover-active" href="{{ route('kontak') }}">KONTAK</a>
+                   <li class="nav-item dropdown" style="margin-left: 50px;">
+
+    <a class="btn btn-outline-light dropdown-toggle" href="#" role="button"
+        data-bs-toggle="dropdown" aria-expanded="false">
+        LOGIN
+    </a>
+    <ul class="dropdown-menu">
+        @auth
+            @if (auth()->user()->hasRole('admin'))
+                <li><a class="dropdown-item" href="{{ route('filament.admin.pages.dashboard') }}">DASHBOARD</a></li>
+            @else
+                <li><a class="dropdown-item" onclick="document.querySelector('#btnLogout').click()"
+                        href="javascript:void(0)">LOGOUT SEBAGAI USER</a></li>
+            @endif
+
+            <form class="d-none" action="{{ route('logout') }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit" id="btnLogout"></button>
+            </form>
+        @else
+            <li><a class="dropdown-item" href="/admin">LOGIN SEBAGAI ADMIN</a></li>
+            <li><a class="dropdown-item" href="{{ route('login') }}">LOGIN SEBAGAI USER</a></li>
+        @endauth
+        </ul>
+            </li>
+
+                   
                     </li>
 
                     </li>
@@ -214,6 +216,75 @@
             background-color: #295004 !important;
             /* warna hijau tua */
         }
+        .navbar-brand img {
+    margin-left: 5px; /* jarak sedikit dari tepi kiri */
+}
+/* Warna background dropdown */
+.navbar .dropdown-menu {
+    background-color: #295004; /* ganti dengan warna yang kamu mau */
+    border: none;
+}
+
+/* Warna teks dropdown */
+.navbar .dropdown-menu .dropdown-item {
+    color: #ffeeee; /* warna teks putih */
+}
+
+/* Warna saat hover */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #295004; /* warna hijau sedikit lebih terang saat hover */
+    color: #fff;
+}
+
+.navbar-custom {
+    background-color: #295004 !important;
+}
+
+    .dropdown-menu .dropdown-item:hover {
+    background-color: #295004;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+/* Warna default dropdown */
+.navbar .dropdown-menu {
+    background-color: #295004; /* hijau tua, warna awal */
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+/* Warna teks default */
+.navbar .dropdown-menu .dropdown-item {
+    color: #fff; /* putih saat belum diklik */
+}
+
+/* Hover item */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background-color: #ffffff; /* hijau lebih terang */
+    color: #000000;
+}
+
+/* Saat dropdown aktif (terbuka), ubah jadi putih */
+.navbar .nav-item.dropdown.show .dropdown-menu {
+    background-color: #ffffff; /* putih saat diklik */
+    border: 1px solid #ddd;
+}
+
+/* Ubah warna teks dropdown jadi gelap saat dropdown aktif */
+.navbar .nav-item.dropdown.show .dropdown-item {
+    color: #000 !important; /* teks hitam */
+}
+
+/* Hover item saat dropdown terbuka */
+.navbar .nav-item.dropdown.show .dropdown-item:hover {
+    background-color: #f2f2f2; /* abu-abu muda saat hover */
+    color: #000;
+}
+
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:active {
+    background-color: #295004;
+    color: #fff;
+}
 
         .hover-show {
             transition: transform .2s;

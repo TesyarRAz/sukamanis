@@ -22,7 +22,7 @@
                             <p class="text-center mt-5">
                                 {{ $gallery->description }}
                             </p>
-                            <a href="{{ route('gambarshow', $item->id) }}">
+                            <a href="{{ route('gambarshow', $data->id) }}">
                                 Lihat Selengkapnya
                             </a>
                         </div>
